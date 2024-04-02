@@ -43,6 +43,10 @@
 <div class="contact-wrap">
     <section class="contact-section">
             <form action="https://submit-form.com/PWEFspqjV" method="POST" enctype="multipart/form-data" class="contact-form">
+                <input
+                    type="hidden"
+                    name="_redirect"
+                    value="https://adamadkins.github.io/PPM-LLC/templates/thank-you.html"/>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -55,7 +59,6 @@
                     <label for="message">Message</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
-                <input type="hidden" name="_next" value="https://adamadkins.github.io/PPM-LLC/templates/thank-you.html">
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
     </section>
