@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Define services based on property type
         let services = [];
         if (propertyType === 'residential') {
-            services = ['House Washing', 'Roof Cleaning', 'Driveway Cleaningr', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening', 'General Handyman Services'
+            services = ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening', 'General Handyman Services'
 ];
         } else if (propertyType === 'commercial') {
             services = ['Concrete Cleaning', 'Dumpster Pad Cleaning', 'Window Cleaning', 'Commercial Roof Washing', 'Gas Stations', 'Canopiess', 'Parking Garages'];
