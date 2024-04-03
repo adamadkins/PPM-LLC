@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
     <link rel="stylesheet" href="/static/css/style.css">
     <title>Estimates</title>
 </head>
@@ -90,7 +91,12 @@
                 </div>
                 <div class="form-group">
                     <label for="images">Attach Images (optional)</label>
-                    <input type="file" id="images" name="images" accept="image/*" multiple>
+                    <input
+                        type="hidden"
+                        id="photo"
+                        name="photo"
+                        role="uploadcare-uploader"
+                        data-public-key="fd3bf0e56f67620f48d4"/>
                 </div>
                 <button type="submit" class="submit-btn">Submit Request</button>
             </form>
