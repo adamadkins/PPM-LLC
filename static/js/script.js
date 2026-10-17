@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (propertyTypeSelect && serviceTypeSelect) {
         const servicesByProperty = {
-            residential: ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening', 'General Handyman Services'],
+            residential: ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening'],
             commercial: ['Concrete Cleaning', 'Dumpster Pad Cleaning', 'Window Cleaning', 'Commercial Roof Washing', 'Gas Stations', 'Canopies', 'Parking Garages']
         };
 
