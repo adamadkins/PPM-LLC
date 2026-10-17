@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (propertyTypeSelect && serviceTypeSelect) {
         const servicesByProperty = {
-            residential: ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening'],
-            commercial: ['Concrete Cleaning', 'Dumpster Pad Cleaning', 'Window Cleaning', 'Commercial Roof Washing', 'Gas Stations', 'Canopies', 'Parking Garages']
+            residential: ['House Washing / Soft Washing', 'Roof Soft Washing', 'Driveway & Sidewalk Cleaning', 'Patio & Pool Deck Cleaning', 'Deck Cleaning', 'Fence Cleaning', 'Gutter Exterior Cleaning & Brightening', 'Other Exterior Cleaning'],
+            commercial: ['Building Exterior Washing', 'Commercial Concrete & Sidewalk Cleaning', 'Parking Lot & Garage Cleaning', 'Dumpster Pad Cleaning', 'Storefront & Entryway Cleaning', 'Gas Station & Canopy Cleaning', 'Commercial Roof Soft Washing', 'Other Commercial Exterior Cleaning']
         };
 
         propertyTypeSelect.addEventListener('change', () => {
