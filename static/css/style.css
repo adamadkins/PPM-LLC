@@ -2897,3 +2897,67 @@ video {
     border-radius: 5px;
 }
 
+
+/* 2026 visual refinement: preserve the Porter navy and warm gold identity. */
+:root { --ppm-navy: #111827; --ppm-gold: #e6c87a; --ppm-cream: #faf9f5; }
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ppm-navy); }
+.navbar { box-shadow: 0 3px 20px rgba(0,0,0,.12); }
+.navbar-container { gap: 1.5rem; }
+.nav-logo, .link-text { transition: color .2s ease, opacity .2s ease; }
+.link-text:hover, .link-text:focus-visible { color: var(--ppm-gold); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #b28b39; outline-offset: 3px; }
+.main { min-height: 620px; }
+.center-container { padding-inline: 1.25rem; }
+.center-container > img { max-width: min(82vw, 460px); height: auto; }
+.center-container > p { max-width: 650px; line-height: 1.75; text-wrap: balance; }
+.center-container a[href="#services"], #services a[href="/templates/estimate.html"] {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 46px; padding: .8rem 1.5rem; border-radius: 8px;
+    background: var(--ppm-gold) !important; color: var(--ppm-navy) !important;
+    font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.center-container a[href="#services"]:hover, #services a[href="/templates/estimate.html"]:hover {
+    transform: translateY(-2px); box-shadow: 0 8px 22px rgba(17,24,39,.18); background: #f0d796 !important;
+}
+#about { background: var(--ppm-cream); }
+#about .about-h3 { font-weight: 700; letter-spacing: -.02em; }
+#about .about-item-text { line-height: 1.75; }
+#services .about-title { letter-spacing: -.035em; }
+#services article img { transition: transform .35s ease; }
+#services article:hover img { transform: scale(1.025); }
+#services article h3 { font-size: 1.25rem; letter-spacing: -.02em; }
+#services article .group { line-height: 1.85; }
+.contact-wrap { background: var(--ppm-cream); }
+.contact-section { min-height: auto; padding: 7rem 1.25rem 5rem; }
+.contact-form, .estimates-section .container {
+    width: 100%; max-width: 720px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 14px; box-shadow: 0 12px 40px rgba(17,24,39,.08);
+    border: 1px solid rgba(17,24,39,.07); background: #fff;
+}
+.estimates-section { margin-top: 0; padding: 7rem 1.25rem 4rem; }
+.estimates-section .container { min-height: 0; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { color: #374151; font-weight: 600; }
+.form-group input[type="text"], .form-group input[type="tel"], .form-group input[type="email"], .form-group select, .form-group textarea {
+    width: 100%; min-height: 46px; padding: .75rem .875rem; font-size: 1rem;
+    border: 1px solid #cbd0d7; border-radius: 8px; background: #fff;
+}
+.form-group textarea { min-height: 130px; }
+.submit-btn, .thank-you-container a {
+    background: var(--ppm-navy); color: #fff; border-radius: 8px;
+    padding: .85rem 1.5rem; font-weight: 700; transition: background-color .2s ease;
+}
+.submit-btn:hover, .thank-you-container a:hover { background: #303d53; }
+footer, .footer { padding: 1.5rem 1rem; font-size: .875rem; line-height: 1.5; }
+@media (max-width: 768px) {
+    .main { min-height: 580px; }
+    .contact-section { margin: 0; overflow: visible; min-height: auto; padding: 7rem 1rem 3rem; }
+    .contact-form, .estimates-section .container { padding: 1.5rem; }
+    .estimates-section { padding: 7rem 1rem 3rem; }
+    #services article .group { margin-top: 1.25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .center-container a[href="#services"], #services a[href="/templates/estimate.html"], #services article img { transition: none; }
+}
