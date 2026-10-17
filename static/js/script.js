@@ -17,26 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Keep the existing mobile menu behavior in sync with its checkbox.
-    const menuToggle = document.getElementById('menuToggle');
-    const menuCheckbox = document.getElementById('menuCheckbox');
-    const menu = document.getElementById('menu');
-
-    if (menuToggle && menuCheckbox && menu) {
-        const syncMenu = () => {
-            menu.classList.toggle('fullscreen', menuCheckbox.checked);
-            document.body.classList.toggle('menu-open', menuCheckbox.checked);
+    const menuButton = document.getElementById('menuButton');
+    const siteMenu = document.getElementById('siteMenu');
+    if (menuButton && siteMenu) {
+        const setOpen = open => {
+            menuButton.setAttribute('aria-expanded', String(open));
+            menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            siteMenu.classList.toggle('is-open', open);
+            document.body.classList.toggle('menu-open', open);
         };
-
-        menuCheckbox.addEventListener('change', syncMenu);
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuCheckbox.checked = false;
-                syncMenu();
-            });
+        menuButton.addEventListener('click', () => setOpen(menuButton.getAttribute('aria-expanded') !== 'true'));
+        siteMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') setOpen(false); });
+        window.addEventListener('resize', () => { if (window.innerWidth > 899) setOpen(false); });
+        document.addEventListener('click', event => {
+            if (!menuButton.contains(event.target) && !siteMenu.contains(event.target)) setOpen(false);
         });
-        syncMenu();
     }
+    document.querySelectorAll('.current-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
     // Image previews are optional and should never interrupt other page scripts.
     const fileUpload = document.getElementById('fileupload');
