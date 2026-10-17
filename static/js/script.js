@@ -1,129 +1,83 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Document is ready!");
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    // Populate estimate services only on pages containing the estimate form.
     const propertyTypeSelect = document.getElementById('propertyType');
     const serviceTypeSelect = document.getElementById('serviceType');
 
-    propertyTypeSelect.addEventListener('change', function() {
-        const propertyType = this.value;
-        console.log(`Property Type Selected: ${propertyType}`); // Debug log
+    if (propertyTypeSelect && serviceTypeSelect) {
+        const servicesByProperty = {
+            residential: ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening', 'General Handyman Services'],
+            commercial: ['Concrete Cleaning', 'Dumpster Pad Cleaning', 'Window Cleaning', 'Commercial Roof Washing', 'Gas Stations', 'Canopies', 'Parking Garages']
+        };
 
-        serviceTypeSelect.innerHTML = ''; // Clear current options
-
-        // Default option
-        const defaultOption = document.createElement('option');
-        defaultOption.textContent = 'Select Service Type';
-        defaultOption.value = '';
-        serviceTypeSelect.appendChild(defaultOption);
-
-        // Define services based on property type
-        let services = [];
-        if (propertyType === 'residential') {
-            services = ['House Washing', 'Roof Cleaning', 'Driveway Cleaning', 'Fence Cleaning', 'Deck Cleaning', 'Gutter Cleaning and Brightening', 'General Handyman Services'
-];
-        } else if (propertyType === 'commercial') {
-            services = ['Concrete Cleaning', 'Dumpster Pad Cleaning', 'Window Cleaning', 'Commercial Roof Washing', 'Gas Stations', 'Canopiess', 'Parking Garages'];
-        }
-
-        // Populate the service type dropdown
-        services.forEach(function(service) {
-            const option = document.createElement('option');
-            option.value = service.toLowerCase().replace(/\s+/g, '_');
-            option.textContent = service;
-            serviceTypeSelect.appendChild(option);
+        propertyTypeSelect.addEventListener('change', () => {
+            serviceTypeSelect.replaceChildren(new Option('Select Service Type', ''));
+            (servicesByProperty[propertyTypeSelect.value] || []).forEach(service => {
+                serviceTypeSelect.add(new Option(service, service.toLowerCase().replace(/\s+/g, '_')));
+            });
         });
-
-        console.log(`Services Updated: ${services.join(', ')}`); // Debug log
-    });
-});
-
-
-
-function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
-
-        if (elementTop < windowHeight - elementVisible) {
-            reveals[i].classList.add("active");
-        } else {
-            reveals[i].classList.remove("active");
-        }
     }
-}
 
-window.addEventListener("scroll", reveal);
-
-
-window.addEventListener("load", reveal);
-
-
-var tabs = document.querySelectorAll('#navbar > div > a');
-
-tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-        // Remove the 'active' class from all tabs
-        tabs.forEach(function (t) {
-            t.classList.remove('clicked');
-        });
-
-        // Add the 'active' class to the clicked tab
-        tab.classList.add('clicked');
-
-    });
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    var menuLinks = document.querySelectorAll('#menu a');
-    var menuCheckbox = document.getElementById('menuCheckbox');
-
-    menuLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            console.log('Menu link clicked. Checkbox will be unchecked now.');
-            menuCheckbox.checked = false;
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
+    // Keep the existing mobile menu behavior in sync with its checkbox.
     const menuToggle = document.getElementById('menuToggle');
+    const menuCheckbox = document.getElementById('menuCheckbox');
     const menu = document.getElementById('menu');
 
-    menuToggle.addEventListener('click', function() {
-        menu.classList.toggle('fullscreen');
+    if (menuToggle && menuCheckbox && menu) {
+        const syncMenu = () => {
+            menu.classList.toggle('fullscreen', menuCheckbox.checked);
+            document.body.classList.toggle('menu-open', menuCheckbox.checked);
+        };
 
-        // Toggle a class on the body element to disable/enable scrolling
-        document.body.classList.toggle('menu-open');
-    });
-});
+        menuCheckbox.addEventListener('change', syncMenu);
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuCheckbox.checked = false;
+                syncMenu();
+            });
+        });
+        syncMenu();
+    }
 
+    // Image previews are optional and should never interrupt other page scripts.
+    const fileUpload = document.getElementById('fileupload');
+    const filePreview = document.getElementById('filePreview');
+    const removeFile = document.getElementById('removeFile');
 
-document.getElementById('fileupload').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const previewContainer = document.getElementById('filePreview');
-    const removeButton = document.getElementById('removeFile');
+    if (fileUpload && filePreview && removeFile) {
+        fileUpload.addEventListener('change', () => {
+            const file = fileUpload.files[0];
+            filePreview.replaceChildren();
+            removeFile.style.display = file ? 'inline' : 'none';
+            if (!file) return;
 
-    if (file) {
-        // Preview for images
-        if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewContainer.innerHTML = `<img src="${e.target.result}" style="max-width: 200px; max-height: 200px;">`; // Adjust styling as needed
-                removeButton.style.display = 'inline'; // Show remove button
-            };
-            reader.readAsDataURL(file);
-        } else {
-            // For non-image files, adjust as necessary. Here we're just displaying the file name.
-            previewContainer.textContent = `Selected file: ${file.name}`;
-            removeButton.style.display = 'inline'; // Show remove button
-        }
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    img.alt = 'Selected image preview';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
+                    filePreview.replaceChildren(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                filePreview.textContent = 'Selected file: ' + file.name;
+            }
+        });
+    }
+
+    // Reveal sections on load and while scrolling.
+    const reveals = document.querySelectorAll('.reveal');
+    const reveal = () => {
+        reveals.forEach(element => {
+            const visible = element.getBoundingClientRect().top < window.innerHeight - 150;
+            element.classList.toggle('active', visible);
+        });
+    };
+    if (reveals.length) {
+        window.addEventListener('scroll', reveal, { passive: true });
+        window.addEventListener('load', reveal);
+        reveal();
     }
 });
